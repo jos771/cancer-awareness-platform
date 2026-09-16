@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Bata-AR | CAP Cancer Awareness Platform</title>
+
+    <meta
+        name="description"
+        content="Bata-AR is CAP's guided body-awareness experience for learning about areas where changes may need professional attention."
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                linear-gradient(
+                    135deg,
+                    #160d25,
+                    #24113d,
+                    #101827
+                );
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(12px);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ff72c8;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+
+            padding: 10px 17px;
+
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 30px;
+
+            transition: 0.25s;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+
+            font-size: clamp(36px, 7vw, 65px);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff72c8,
+                    #b989ff,
+                    #6dc8ff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: auto;
+
+            color: #d7d1e5;
+
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .warning {
+            max-width: 850px;
+            margin: 25px auto 0;
+
+            padding: 15px 20px;
+
+            background: rgba(255,255,255,0.07);
+
+            border-left: 4px solid #ff72c8;
+
+            border-radius: 10px;
+
+            color: #e5dfec;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: min(1100px, 94%);
+
+            margin: 0 auto 60px;
+        }
+
+        /* =========================
+           GENDER SELECTION
+        ========================= */
+
+        .selection-card {
+            background: rgba(255,255,255,0.07);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            border-radius: 24px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.25);
+        }
+
+        .selection-card h2 {
+            margin-top: 0;
+        }
+
+        .selection-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 15px;
+
+            margin-top: 25px;
+        }
+
+        .bata-button {
+            border: none;
+
+            padding: 13px 24px;
+
+            border-radius: 30px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d84b9b,
+                    #7651c9
+                );
+
+            transition: 0.25s;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .bata-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .bata-button.neutral {
+            background: rgba(255,255,255,0.12);
+        }
+
+        .bata-button.stop {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .bata-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* =========================
+           GUIDE
+        ========================= */
+
+        .bata-guide {
+            margin-top: 30px;
+
+            background: rgba(255,255,255,0.06);
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            border-radius: 25px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 20px 70px rgba(0,0,0,0.3);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .guide-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .guide-header h2 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .guide-header p {
+            color: #cfc8dc;
+            margin: 0;
+        }
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress-wrapper {
+            margin: 20px auto 30px;
+
+            max-width: 700px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+
+            font-size: 14px;
+
+            color: #cfc7d8;
+
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 9px;
+
+            background: rgba(255,255,255,0.1);
+
+            border-radius: 20px;
+
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff72c8,
+                    #9f76ff,
+                    #6dc8ff
+                );
+
+            border-radius: 20px;
+
+            transition: width 0.4s ease;
+        }
+
+        /* =========================
+           GUIDE LAYOUT
+        ========================= */
+
+        .guide-content {
+            display: grid;
+
+            grid-template-columns:
+                minmax(280px, 1fr)
+                minmax(280px, 0.9fr);
+
+            gap: 30px;
+
+            align-items: center;
+        }
+
+        /* =========================
+           BODY IMAGE
+        ========================= */
+
+        .body-container {
+            position: relative;
+
+            width: 100%;
+
+            max-width: 500px;
+
+            margin: auto;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        .body-image {
+            width: 100%;
+
+            max-width: 420px;
+
+            height: auto;
+
+            display: block;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,0.4);
+        }
+
+        /* =========================
+           HOTSPOTS
+        ========================= */
+
+        .hotspot {
+            position: absolute;
+
+            width: 30px;
+            height: 30px;
+
+            transform: translate(-50%, -50%);
+
+            border-radius: 50%;
+
+            border: 3px solid white;
+
+            background: rgba(255, 87, 178, 0.9);
+
+            box-shadow:
+                0 0 0 6px rgba(255,114,200,0.18),
+                0 0 25px rgba(255,114,200,0.7);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s,
+                opacity 0.25s;
+
+            z-index: 10;
+        }
+
+        .hotspot:hover {
+            transform:
+                translate(-50%, -50%)
+                scale(1.15);
+        }
+
+        .hotspot.active {
+            transform:
+                translate(-50%, -50%)
+                scale(1.2);
+
+            box-shadow:
+                0 0 0 10px rgba(255,114,200,0.2),
+                0 0 35px rgba(255,114,200,0.9);
+        }
+
+        .hotspot.inactive {
+            opacity: 0.35;
+        }
+
+        /* =========================
+           INFO PANEL
+        ========================= */
+
+        .info-panel {
+            background: rgba(0,0,0,0.2);
+
+            border:
+                1px solid rgba(255,255,255,0.12);
+
+            border-radius: 20px;
+
+            padding: 25px;
+        }
+
+        .step-label {
+            display: inline-block;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            background: rgba(255,114,200,0.12);
+
+            color: #ff9bd5;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            margin-bottom: 12px;
+        }
+
+        .info-panel h2 {
+            margin:
+                0 0 10px;
+
+            font-size: 30px;
+        }
+
+        .info-panel h3 {
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+
+        .info-panel p {
+            color: #d8d1e2;
+
+            line-height: 1.7;
+
+            margin-top: 0;
+        }
+
+        .info-panel ul {
+            padding-left: 20px;
+
+            color: #d8d1e2;
+
+            line-height: 1.8;
+        }
+
+        .info-note {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background: rgba(110, 196, 255, 0.08);
+
+            border-left:
+                3px solid #6dc8ff;
+
+            color: #d7dcec;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           VOICE CONTROLS
+        ========================= */
+
+        .voice-box {
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.1);
+        }
+
+        .voice-box label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            color: #cfc7d8;
+        }
+
+        .voice-select {
+            width: 100%;
+
+            padding: 11px 13px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid rgba(255,255,255,0.2);
+
+            background: #241b32;
+
+            color: white;
+
+            outline: none;
+        }
+
+        .voice-buttons {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 12px;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        .guide-navigation {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+        .guide-navigation button {
+            min-width: 130px;
+        }
+
+        /* =========================
+           COMPLETION
+        ========================= */
+
+        .completion {
+            text-align: center;
+
+            padding: 45px 20px;
+        }
+
+        .completion-icon {
+            width: 75px;
+            height: 75px;
+
+            margin: 0 auto 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff72c8,
+                    #7959ca
+                );
+
+            font-size: 34px;
+
+            box-shadow:
+                0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .completion h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .completion p {
+            max-width: 650px;
+
+            margin: 0 auto 25px;
+
+            color: #d8d1e2;
+
+            line-height: 1.7;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.1);
+
+            color: #aaa1b8;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 760px) {
+
+            .navbar {
+                padding: 15px 18px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .back-link {
+                font-size: 13px;
+                padding: 8px 13px;
+            }
+
+            .hero {
+                padding-top: 40px;
+            }
+
+            .selection-card,
+            .bata-guide {
+                padding: 18px;
+            }
+
+            .guide-content {
+                grid-template-columns: 1fr;
+            }
+
+            .body-container {
+                max-width: 360px;
+            }
+
+            .info-panel {
+                padding: 20px;
+            }
+
+            .info-panel h2 {
+                font-size: 26px;
+            }
+
+            .guide-navigation {
+                flex-direction: column-reverse;
+            }
+
+            .guide-navigation button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        CAP<span>.</span>
+    </div>
+
+    <a
+        href="/"
+        class="back-link"
+    >
+        ← Back to CAP
+    </a>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>Bata-AR</h1>
+
+    <p>
+        A guided body-awareness experience from CAP.
+        Learn about different areas of the body and the kinds
+        of changes that may be worth discussing with a healthcare
+        professional.
+    </p>
+
+    <div class="warning">
+
+        <strong>Important:</strong>
+        Bata-AR is an educational awareness tool.
+        It does not diagnose cancer or replace a medical examination.
+        If you notice a new or persistent change that concerns you,
+        speak with a qualified healthcare professional.
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="container">
+
+
+    <!-- =========================
+         GENDER SELECTION
+    ========================= -->
+
+    <section class="selection-card">
+
+        <h2>Choose your guide</h2>
+
+        <p>
+            Select the guide you want to use.
+            The guide will then take you through the relevant
+            awareness areas one step at a time.
+        </p>
+
+        <div class="selection-buttons">
+
+            <button
+                class="bata-button"
+                onclick="chooseGuide('male')"
+            >
+                Male Guide
+            </button>
+
+            <button
+                class="bata-button"
+                onclick="chooseGuide('female')"
+            >
+                Female Guide
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         GUIDE
+    ========================= -->
+
+    <section
+        id="guideArea"
+        class="bata-guide hidden"
+    >
+
+        <div class="guide-header">
+
+            <h2 id="guideTitle">
+                Body Awareness Guide
+            </h2>
+
+            <p id="guideSubtitle">
+                Follow the steps at your own pace.
+            </p>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="progress-wrapper">
+
+            <div class="progress-info">
+
+                <span id="progressText">
+                    Step 1 of 5
+                </span>
+
+                <span id="progressPercent">
+                    0%
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    id="progressFill"
+                    class="progress-fill"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- GUIDE CONTENT -->
+
+        <div class="guide-content">
+
+
+            <!-- BODY -->
+
+            <div class="body-container">
+
+                <!-- MALE IMAGE -->
+
+                <img
+                    id="maleImage"
+                    class="body-image"
+                    src="{{ url_for('static', filename='male_model.jpg') }}"
+                    alt="Male body awareness guide"
+                >
+
+                <!-- FEMALE IMAGE -->
+
+                <img
+                    id="femaleImage"
+                    class="body-image hidden"
+                    src="{{ url_for('static', filename='female_model.jpg') }}"
+                    alt="Female body awareness guide"
+                >
+
+
+                <!-- =====================
+                     MALE HOTSPOTS
+                ====================== -->
+
+                <button
+                    class="hotspot male-hotspot"
+                    data-area="mouth"
+                    aria-label="Mouth and throat"
+                    style="left:50%; top:15%;"
+                    onclick="selectArea('mouth')"
+                ></button>
+
+                <button
+                    class="hotspot male-hotspot"
+                    data-area="neck"
+                    aria-label="Neck"
+                    style="left:50%; top:22%;"
+                    onclick="selectArea('neck')"
+                ></button>
+
+                <button
+                    class="hotspot male-hotspot"
+                    data-area="armpits"
+                    aria-label="Armpits"
+                    style="left:38%; top:30%;"
+                    onclick="selectArea('armpits')"
+                ></button>
+
+                <button
+                    class="hotspot male-hotspot"
+                    data-area="armpits"
+                    aria-label="Armpits"
+                    style="left:63%; top:30%;"
+                    onclick="selectArea('armpits')"
+                ></button>
+
+                <button
+                    class="hotspot male-hotspot"
+                    data-area="skin"
+                    aria-label="Skin"
+                    style="left:70%; top:43%;"
+                    onclick="selectArea('skin')"
+                ></button>
+
+                <button
+                    class="hotspot male-hotspot"
+                    data-area="groin"
+                    aria-label="Groin and testicular awareness"
+                    style="left:50%; top:49%;"
+                    onclick="selectArea('groin')"
+                ></button>
+
+
+                <!-- =====================
+                     FEMALE HOTSPOTS
+                ====================== -->
+
+                <button
+                    class="hotspot female-hotspot hidden"
+                    data-area="mouth"
+                    aria-label="Mouth and throat"
+                    style="left:50%; top:15%;"
+                    onclick="selectArea('mouth')"
+                ></button>
+
+                <button
+                    class="hotspot female-hotspot hidden"
+                    data-area="neck"
+                    aria-label="Neck"
+                    style="left:50%; top:22%;"
+                    onclick="selectArea('neck')"
+                ></button>
+
+                <button
+                    class="hotspot female-hotspot hidden"
+                    data-area="armpits"
+                    aria-label="Armpits"
+                    style="left:36%; top:31%;"
+                    onclick="selectArea('armpits')"
+                ></button>
+
+                <button
+                    class="hotspot female-hotspot hidden"
+                    data-area="armpits"
+                    aria-label="Armpits"
+                    style="left:64%; top:31%;"
+                    onclick="selectArea('armpits')"
+                ></button>
+
+                <button
+                    class="hotspot female-hotspot hidden"
+                    data-area="breasts"
+                    aria-label="Breast awareness"
+                    style="left:50%; top:36%;"
+                    onclick="selectArea('breasts')"
+                ></button>
+
+                <button
+                    class="hotspot female-hotspot hidden"
+                    data-area="skin"
+                    aria-label="Skin"
+                    style="left:70%; top:46%;"
+                    onclick="selectArea('skin')"
+                ></button>
+
+            </div>
+
+
+            <!-- =====================
+                 INFORMATION
+            ====================== -->
+
+            <div class="info-panel">
+
+                <span
+                    id="stepLabel"
+                    class="step-label"
+                >
+                    Step 1
+                </span>
+
+                <h2 id="areaTitle">
+                    Welcome
+                </h2>
+
+                <p id="areaIntro">
+                    Choose a guide to begin.
+                </p>
+
+
+                <h3>
+                    Changes worth paying attention to
+                </h3>
+
+                <ul id="areaList">
+                    <li>
+                        Follow the guide to learn more.
+                    </li>
+                </ul>
+
+
+                <div
+                    id="areaAction"
+                    class="info-note"
+                >
+                    This tool provides general health education
+                    and does not provide a diagnosis.
+                </div>
+
+
+                <!-- VOICE -->
+
+                <div class="voice-box">
+
+                    <label for="voiceSelect">
+                        Voice
+                    </label>
+
+                    <select
+                        id="voiceSelect"
+                        class="voice-select"
+                    >
+                        <option>
+                            Loading voices...
+                        </option>
+                    </select>
+
+
+                    <div class="voice-buttons">
+
+                        <button
+                            class="bata-button"
+                            onclick="readGuide()"
+                        >
+                            🔊 Read this step
+                        </button>
+
+                        <button
+                            class="bata-button stop"
+                            onclick="stopReading()"
+                        >
+                            ■ Stop
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================
+             NAVIGATION
+        ====================== -->
+
+        <div class="guide-navigation">
+
+            <button
+                id="previousButton"
+                class="bata-button neutral"
+                onclick="previousStep()"
+            >
+                ← Previous
+            </button>
+
+            <button
+                id="nextButton"
+                class="bata-button"
+                onclick="handleNext()"
+            >
+                Next →
+            </button>
+
+        </div>
+
+
+        <!-- =====================
+             COMPLETION
+        ====================== -->
+
+        <div
+            id="completion"
+            class="completion hidden"
+        >
+
+            <div class="completion-icon">
+                ✓
+            </div>
+
+            <h2>
+                Guide completed
+            </h2>
+
+            <p>
+                You have completed the Bata-AR awareness guide.
+                Remember that becoming familiar with your body is
+                about noticing changes, not diagnosing yourself.
+            </p>
+
+            <p>
+                If you notice a new, unusual or persistent change
+                that concerns you, speak with a qualified healthcare
+                professional.
+            </p>
+
+            <button
+                class="bata-button"
+                onclick="restartGuide()"
+            >
+                Restart Guide
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <strong>
+        CAP — Cancer Awareness Platform
+    </strong>
+
+    <br>
+
+    Bata-AR is an educational awareness feature.
+    It does not diagnose cancer or replace professional medical care.
+
+    <br><br>
+
+    © 2026 CAP — Cancer Awareness Platform
+
+</footer>
+
+
+<script>
+
+    /* =========================================================
+       AWARENESS INFORMATION
+    ========================================================= */
+
+    const areas = {
+
+        mouth: {
+
+            title: "Mouth & Throat Awareness",
+
+            subtitle:
+                "Pay attention to persistent changes.",
+
+            intro:
+                "Becoming familiar with your mouth and throat can help you notice unusual changes that persist.",
+
+            lookFor: [
+
+                "A mouth sore or ulcer that does not heal.",
+
+                "An unusual red or white patch.",
+
+                "A persistent lump or swelling.",
+
+                "Persistent changes involving swallowing.",
+
+                "A persistent change in your voice.",
+
+                "Another unusual change that does not go away."
+
+            ],
+
+            action:
+                "If an unusual mouth or throat change persists, speak with a qualified healthcare professional, dentist or other appropriate healthcare provider."
+
+        },
+
+
+        neck: {
+
+            title: "Neck Awareness",
+
+            subtitle:
+                "Pay attention to persistent changes.",
+
+            intro:
+                "The neck contains lymph nodes and other structures that can become swollen for many different reasons. Knowing what is normal for you can help you notice persistent changes.",
+
+            lookFor: [
+
+                "A new lump or swelling in the neck.",
+
+                "A lump that does not go away.",
+
+                "A change that continues to grow or change.",
+
+                "Persistent changes accompanied by other unusual symptoms.",
+
+                "An unusual change that is not normal for you."
+
+            ],
+
+            action:
+                "A new or persistent neck lump should be discussed with a healthcare professional, particularly if it does not settle or is getting larger."
+
+        },
+
+
+        armpits: {
+
+            title: "Armpit Awareness",
+
+            subtitle:
+                "Be aware of new or persistent changes.",
+
+            intro:
+                "The armpits contain lymph nodes and other tissues. Becoming familiar with the area can help you notice unusual changes.",
+
+            lookFor: [
+
+                "A new lump or swelling.",
+
+                "A lump that remains or continues to grow.",
+
+                "Persistent swelling or an unusual change.",
+
+                "A change that occurs together with another unusual change.",
+
+                "Anything that feels noticeably different from normal."
+
+            ],
+
+            action:
+                "If you notice a new or persistent lump or swelling, speak with a healthcare professional for an assessment."
+
+        },
+
+
+        skin: {
+
+            title: "Skin Awareness",
+
+            subtitle:
+                "Notice new or changing skin marks.",
+
+            intro:
+                "Skin awareness means paying attention to new or changing moles, spots, marks or other persistent changes.",
+
+            lookFor: [
+
+                "A new mole or unusual skin mark.",
+
+                "A mole or mark that changes in size.",
+
+                "A change in shape or colour.",
+
+                "A mark that looks noticeably different from your other marks.",
+
+                "A skin change that does not heal or keeps changing."
+
+            ],
+
+            action:
+                "If you notice a new or changing skin mark that concerns you, arrange an assessment with a qualified healthcare professional."
+
+        },
+
+
+        groin: {
+
+            title: "Groin & Testicular Awareness",
+
+            subtitle:
+                "Know your normal.",
+
+            intro:
+                "Being familiar with your normal testicular size, shape and general appearance can help you notice changes that may need professional assessment.",
+
+            lookFor: [
+
+                "A new lump or swelling.",
+
+                "A change in size or shape.",
+
+                "A feeling of heaviness or an unusual change.",
+
+                "Persistent discomfort or pain.",
+
+                "A change that is new or unusual for you."
+
+            ],
+
+            action:
+                "If you notice a new or persistent change, speak with a qualified healthcare professional. Do not rely on self-checking to diagnose a condition."
+
+        },
+
+
+        breasts: {
+
+            title: "Breast Awareness",
+
+            subtitle:
+                "Know what is normal for you.",
+
+            intro:
+                "Breast awareness means becoming familiar with how your breasts normally look and feel so that you can notice a new or unusual change.",
+
+            lookFor: [
+
+                "A new lump or swelling in the breast or armpit.",
+
+                "A change in the size or shape of the breast.",
+
+                "A change in the appearance of the skin.",
+
+                "A change in the nipple or nipple position.",
+
+                "Unusual nipple discharge.",
+
+                "A persistent change that is unusual for you."
+
+            ],
+
+            action:
+                "If you notice a new or unusual change, do not try to diagnose it yourself. Arrange an assessment with a qualified healthcare professional."
+
+        }
+
+    };
+
+
+    /* =========================================================
+       GUIDE ORDER
+    ========================================================= */
+
+    const maleGuide = [
+
+        "mouth",
+        "neck",
+        "armpits",
+        "skin",
+        "groin"
+
+    ];
+
+
+    const femaleGuide = [
+
+        "mouth",
+        "neck",
+        "armpits",
+        "skin",
+        "breasts"
+
+    ];
+
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+
+    let currentGender = null;
+
+    let currentStep = 0;
+
+    let currentGuide = [];
+
+    let voices = [];
+
+    let selectedVoice = null;
+
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const guideArea =
+        document.getElementById("guideArea");
+
+    const maleImage =
+        document.getElementById("maleImage");
+
+    const femaleImage =
+        document.getElementById("femaleImage");
+
+    const guideTitle =
+        document.getElementById("guideTitle");
+
+    const guideSubtitle =
+        document.getElementById("guideSubtitle");
+
+    const stepLabel =
+        document.getElementById("stepLabel");
+
+    const areaTitle =
+        document.getElementById("areaTitle");
+
+    const areaIntro =
+        document.getElementById("areaIntro");
+
+    const areaList =
+        document.getElementById("areaList");
+
+    const areaAction =
+        document.getElementById("areaAction");
+
+    const progressFill =
+        document.getElementById("progressFill");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    const progressPercent =
+        document.getElementById("progressPercent");
+
+    const previousButton =
+        document.getElementById("previousButton");
+
+    const nextButton =
+        document.getElementById("nextButton");
+
+    const completion =
+        document.getElementById("completion");
+
+    const voiceSelect =
+        document.getElementById("voiceSelect");
+
+
+    /* =========================================================
+       CHOOSE GUIDE
+    ========================================================= */
+
+    function chooseGuide(gender) {
+
+        currentGender = gender;
+
+        currentStep = 0;
+
+        if (gender === "male") {
+
+            currentGuide = maleGuide;
+
+            maleImage.classList.remove("hidden");
+
+            femaleImage.classList.add("hidden");
+
+            document
+                .querySelectorAll(".male-hotspot")
+                .forEach(hotspot => {
+                    hotspot.classList.remove("hidden");
+                });
+
+            document
+                .querySelectorAll(".female-hotspot")
+                .forEach(hotspot => {
+                    hotspot.classList.add("hidden");
+                });
+
+            guideTitle.textContent =
+                "Male Body Awareness Guide";
+
+            guideSubtitle.textContent =
+                "Follow the guide from one area to the next.";
+
+        } else {
+
+            currentGuide = femaleGuide;
+
+            femaleImage.classList.remove("hidden");
+
+            maleImage.classList.add("hidden");
+
+            document
+                .querySelectorAll(".female-hotspot")
+                .forEach(hotspot => {
+                    hotspot.classList.remove("hidden");
+                });
+
+            document
+                .querySelectorAll(".male-hotspot")
+                .forEach(hotspot => {
+                    hotspot.classList.add("hidden");
+                });
+
+            guideTitle.textContent =
+                "Female Body Awareness Guide";
+
+            guideSubtitle.textContent =
+                "Follow the guide from one area to the next.";
+
+        }
+
+        guideArea.classList.remove("hidden");
+
+        completion.classList.add("hidden");
+
+        document
+            .querySelector(".guide-content")
+            .classList.remove("hidden");
+
+        document
+            .querySelector(".guide-navigation")
+            .classList.remove("hidden");
+
+        showStep();
+
+        guideArea.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+
+
+    /* =========================================================
+       GET CURRENT AREA
+    ========================================================= */
+
+    function getCurrentArea() {
+
+        if (!currentGuide.length) {
+            return null;
+        }
+
+        const areaName =
+            currentGuide[currentStep];
+
+        return areas[areaName];
+
+    }
+
+
+    /* =========================================================
+       SHOW STEP
+    ========================================================= */
+
+    function showStep() {
+
+        if (!currentGuide.length) {
+            return;
+        }
+
+        const areaName =
+            currentGuide[currentStep];
+
+        const area =
+            areas[areaName];
+
+        if (!area) {
+            return;
+        }
+
+
+        /* TEXT */
+
+        stepLabel.textContent =
+            `Step ${currentStep + 1}`;
+
+        areaTitle.textContent =
+            area.title;
+
+        areaIntro.textContent =
+            area.intro;
+
+
+        /* LIST */
+
+        areaList.innerHTML = "";
+
+        area.lookFor.forEach(item => {
+
+            const li =
+                document.createElement("li");
+
+            li.textContent = item;
+
+            areaList.appendChild(li);
+
+        });
+
+
+        /* ACTION */
+
+        areaAction.textContent =
+            area.action;
+
+
+        /* PROGRESS */
+
+        updateProgress();
+
+
+        /* HOTSPOTS */
+
+        updateHotspots(areaName);
+
+
+        /* NAVIGATION */
+
+        updateNavigation();
+
+
+        /* STOP CURRENT VOICE */
+
+        stopReading();
+
+    }
+
+
+    /* =========================================================
+       UPDATE PROGRESS
+    ========================================================= */
+
+    function updateProgress() {
+
+        const total =
+            currentGuide.length;
+
+        const stepNumber =
+            currentStep + 1;
+
+        const percent =
+            Math.round(
+                (stepNumber / total) * 100
+            );
+
+        progressText.textContent =
+            `Step ${stepNumber} of ${total}`;
+
+        progressPercent.textContent =
+            `${percent}%`;
+
+        progressFill.style.width =
+            `${percent}%`;
+
+    }
+
+
+    /* =========================================================
+       UPDATE HOTSPOTS
+    ========================================================= */
+
+    function updateHotspots(activeArea) {
+
+        document
+            .querySelectorAll(".hotspot")
+            .forEach(hotspot => {
+
+                hotspot.classList.remove("active");
+
+                hotspot.classList.add("inactive");
+
+                if (
+                    !hotspot.classList.contains("hidden") &&
+                    hotspot.dataset.area === activeArea
+                ) {
+
+                    hotspot.classList.remove("inactive");
+
+                    hotspot.classList.add("active");
+
+                }
+
+            });
+
+    }
+
+
+    /* =========================================================
+       UPDATE NAVIGATION
+    ========================================================= */
+
+    function updateNavigation() {
+
+        previousButton.disabled =
+            currentStep === 0;
+
+        if (
+            currentStep ===
+            currentGuide.length - 1
+        ) {
+
+            nextButton.textContent =
+                "Complete ✓";
+
+        } else {
+
+            nextButton.textContent =
+                "Next →";
+
+        }
+
+    }
+
+
+    /* =========================================================
+       NEXT STEP
+    ========================================================= */
+
+    function nextStep() {
+
+        if (
+            currentStep <
+            currentGuide.length - 1
+        ) {
+
+            currentStep++;
+
+            showStep();
+
+            window.scrollTo({
+                top: guideArea.offsetTop - 20,
+                behavior: "smooth"
+            });
+
+        } else {
+
+            completeGuide();
+
+        }
+
+    }
+
+
+    /* =========================================================
+       PREVIOUS STEP
+    ========================================================= */
+
+    function previousStep() {
+
+        if (currentStep > 0) {
+
+            currentStep--;
+
+            showStep();
+
+            window.scrollTo({
+                top: guideArea.offsetTop - 20,
+                behavior: "smooth"
+            });
+
+        }
+
+    }
+
+
+    /* =========================================================
+       HANDLE NEXT
+    ========================================================= */
+
+    function handleNext() {
+
+        nextStep();
+
+    }
+
+
+    /* =========================================================
+       SELECT AREA
+    ========================================================= */
+
+    function selectArea(areaName) {
+
+        const index =
+            currentGuide.indexOf(areaName);
+
+        if (index === -1) {
+            return;
+        }
+
+        currentStep = index;
+
+        showStep();
+
+        document
+            .querySelector(".info-panel")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+    }
+
+
+    /* =========================================================
+       COMPLETE GUIDE
+    ========================================================= */
+
+    function completeGuide() {
+
+        stopReading();
+
+        document
+            .querySelector(".guide-content")
+            .classList.add("hidden");
+
+        document
+            .querySelector(".guide-navigation")
+            .classList.add("hidden");
+
+        completion.classList.remove("hidden");
+
+        progressFill.style.width = "100%";
+
+        progressText.textContent =
+            "Guide complete";
+
+        progressPercent.textContent =
+            "100%";
+
+        document
+            .querySelectorAll(".hotspot")
+            .forEach(hotspot => {
+                hotspot.classList.remove("active");
+                hotspot.classList.add("inactive");
+            });
+
+        completion.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+    /* =========================================================
+       RESTART GUIDE
+    ========================================================= */
+
+    function restartGuide() {
+
+        if (!currentGender) {
+            return;
+        }
+
+        currentStep = 0;
+
+        document
+            .querySelector(".guide-content")
+            .classList.remove("hidden");
+
+        document
+            .querySelector(".guide-navigation")
+            .classList.remove("hidden");
+
+        completion.classList.add("hidden");
+
+        showStep();
+
+    }
+
+
+    /* =========================================================
+       SPEECH SYNTHESIS
+    ========================================================= */
+
+    function loadVoices() {
+
+        if (
+            !("speechSynthesis" in window)
+        ) {
+
+            voiceSelect.innerHTML =
+                "<option>Voice not supported</option>";
+
+            return;
+
+        }
+
+        voices =
+            window.speechSynthesis
+                .getVoices();
+
+        if (!voices.length) {
+            return;
+        }
+
+        voiceSelect.innerHTML = "";
+
+        voices.forEach(
+            (voice, index) => {
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value = index;
+
+                option.textContent =
+                    `${voice.name} — ${voice.lang}`;
+
+                voiceSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        /* =========================
+           PREFER ARIEL
+        ========================= */
+
+        let arielIndex =
+            voices.findIndex(
+                voice =>
+                    voice.name
+                        .toLowerCase()
+                        .includes("ariel")
+            );
+
+
+        /*
+           If Ariel exists, automatically
+           select it.
+        */
+
+        if (arielIndex !== -1) {
+
+            voiceSelect.value =
+                arielIndex;
+
+            selectedVoice =
+                voices[arielIndex];
+
+        } else {
+
+            /*
+               Otherwise use the first
+               available voice.
+            */
+
+            selectedVoice =
+                voices[0];
+
+        }
+
+    }
+
+
+    /* =========================================================
+       VOICE CHANGE
+    ========================================================= */
+
+    voiceSelect.addEventListener(
+        "change",
+        function() {
+
+            const index =
+                parseInt(
+                    this.value,
+                    10
+                );
+
+            if (
+                !isNaN(index) &&
+                voices[index]
+            ) {
+
+                selectedVoice =
+                    voices[index];
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       READ GUIDE
+    ========================================================= */
+
+    function readGuide() {
+
+        if (
+            !("speechSynthesis" in window)
+        ) {
+
+            alert(
+                "Your browser does not support voice reading."
+            );
+
+            return;
+
+        }
+
+        const area =
+            getCurrentArea();
+
+        if (!area) {
+            return;
+        }
+
+
+        stopReading();
+
+
+        let text = "";
+
+        text +=
+            `${area.title}. `;
+
+        text +=
+            `${area.intro} `;
+
+        text +=
+            "Changes worth paying attention to. ";
+
+        area.lookFor.forEach(
+            item => {
+
+                text +=
+                    `${item} `;
+
+            }
+        );
+
+        text +=
+            `What to do: ${area.action}`;
+
+
+        const speech =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+
+        /* =========================
+           ARIEL / SELECTED VOICE
+        ========================= */
+
+        if (selectedVoice) {
+
+            speech.voice =
+                selectedVoice;
+
+        }
+
+
+        /* =========================
+           VOICE SETTINGS
+        ========================= */
+
+        speech.rate = 0.92;
+
+        speech.pitch = 1;
+
+        speech.volume = 1;
+
+
+        window.speechSynthesis
+            .speak(speech);
+
+    }
+
+
+    /* =========================================================
+       STOP READING
+    ========================================================= */
+
+    function stopReading() {
+
+        if (
+            "speechSynthesis" in window
+        ) {
+
+            window.speechSynthesis.cancel();
+
+        }
+
+    }
+
+
+    /* =========================================================
+       LOAD VOICES
+    ========================================================= */
+
+    if (
+        "speechSynthesis" in window
+    ) {
+
+        loadVoices();
+
+        window.speechSynthesis
+            .onvoiceschanged =
+                loadVoices;
+
+    } else {
+
+        voiceSelect.innerHTML =
+            "<option>Voice unavailable</option>";
+
+    }
+
+
+    /* =========================================================
+       INITIAL STATE
+    ========================================================= */
+
+    maleImage.classList.add("hidden");
+
+    femaleImage.classList.add("hidden");
+
+    document
+        .querySelectorAll(".hotspot")
+        .forEach(hotspot => {
+
+            hotspot.classList.add("hidden");
+
+        });
+
+</script>
+
+
+</body>
+
+</html>

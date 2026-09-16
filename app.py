@@ -3,7 +3,7 @@ from flask import Flask, render_template, abort, Response
 app = Flask(__name__)
 
 # ==================================================
-# CAP - CANCER AWARENESS PROJECT
+# CAP - CANCER AWARENESS Platform
 # ==================================================
 
 SITE_URL = "https://cancer-awareness-platform-5wtt.onrender.com"
@@ -248,6 +248,12 @@ def warning_signs():
     return render_template("warning_signs.html")
 
 
+@app.route("/research_notes")
+@app.route("/research-notes")
+def research_notes():
+    return render_template("research_notes.html")
+
+
 @app.route("/myths")
 def myths():
     return render_template("myths.html")
@@ -257,6 +263,9 @@ def myths():
 def healthcare():
     return render_template("healthcare.html")
 
+@app.route("/ar-check")
+def ar_check():
+    return render_template("ar_guide.html")
 
 # ==================================================
 # ROBOTS.TXT
@@ -288,6 +297,7 @@ def sitemap():
         f"{SITE_URL}/",
         f"{SITE_URL}/self-check",
         f"{SITE_URL}/warning-signs",
+        f"{SITE_URL}/research_notes",
         f"{SITE_URL}/myths",
         f"{SITE_URL}/healthcare",
 

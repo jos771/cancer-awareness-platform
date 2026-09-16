@@ -3,7 +3,7 @@
 __pycache__/
 *.py[cod]
 
-# PyCharm project settings
+# PyCharm Platform settings
 .idea/
 
 # Local secrets and environment overrides

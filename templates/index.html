@@ -1,37 +1,707 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-    <!-- CAP SEO -->
-<title>CAP | Cancer Awareness Project</title>
-
-<meta name="description"
-      content="CAP is a cancer awareness project that provides educational information about cancer awareness, warning signs, body changes, myths and facts, and finding healthcare services.">
-
-<meta name="keywords"
-      content="cancer awareness, cancer education, cancer signs, cancer prevention, health awareness, Zimbabwe cancer awareness">
-
-<meta name="author"
-      content="CAP - Cancer Awareness Project">
-
-<meta name="robots"
-      content="index, follow">
-
-<link rel="canonical"
-      href="https://cancer-awareness-platform-5wtt.onrender.com/">
-
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>
-        CAP | Cancer Awareness Platform
-    </title>
+    <title>CAP | Cancer Awareness Platform</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <meta name="description"
+          content="CAP is a cancer awareness project providing educational information about cancer awareness, warning signs, body changes, myths and facts, and finding healthcare services.">
+
+    <meta name="keywords"
+          content="cancer awareness, cancer education, cancer signs, cancer prevention, health awareness, Zimbabwe cancer awareness">
+
+    <meta name="author"
+          content="Kupakwashe Nkosilathi Sithole">
+
+    <meta name="robots"
+          content="index, follow">
+
+    <link rel="canonical"
+          href="https://cancer-awareness-platform-5wtt.onrender.com/">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #ffffff;
+            background: #08080f;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    rgba(5, 5, 12, 0.62),
+                    rgba(5, 5, 12, 0.82)
+                );
+
+            z-index: 1;
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+
+            background-size: cover;
+            background-position: center;
+
+            animation: heroSlideshow 24s infinite;
+
+            z-index: 0;
+        }
+
+        @keyframes heroSlideshow {
+
+            0%, 20% {
+                background-image: url("{{ url_for('static', filename='hero1.jpg') }}");
+            }
+
+            25%, 45% {
+                background-image: url("{{ url_for('static', filename='hero2.jpg') }}");
+            }
+
+            50%, 70% {
+                background-image: url("{{ url_for('static', filename='hero3.jpg') }}");
+
+            }
+
+            100% {
+                background-image: url("{{ url_for('static', filename='hero1.jpg') }}");
+            }
+        }
+
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: relative;
+            z-index: 5;
+
+            width: 100%;
+
+            padding: 22px 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+            color: #ffffff;
+        }
+
+        .logo span {
+            color: #ff5fa2;
+        }
+
+        .nav-links {
+            display: flex;
+
+            gap: 25px;
+
+            list-style: none;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff72b1;
+        }
+
+
+        /* =========================
+           HERO CONTENT
+        ========================= */
+
+        .hero-content {
+            position: relative;
+
+            z-index: 3;
+
+            max-width: 950px;
+
+            margin: auto;
+
+            padding: 80px 7%;
+
+            text-align: center;
+        }
+
+        .hero-content .tag {
+            display: inline-block;
+
+            padding: 9px 18px;
+
+            border: 1px solid rgba(255,255,255,0.35);
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(48px, 8vw, 90px);
+
+            line-height: 0.95;
+
+            font-weight: 900;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 span {
+            color: #ff5fa2;
+        }
+
+        .hero-content p {
+            max-width: 750px;
+
+            margin: auto;
+
+            color: #eeeeee;
+
+            font-size: 19px;
+
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            margin-top: 35px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 15px 27px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #ff5fa2;
+
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+
+            background: #ff3f91;
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255,255,255,0.35);
+
+            color: #ffffff;
+
+            background: rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.16);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================
+           MAIN SECTIONS
+        ========================= */
+
+        section {
+            padding: 90px 7%;
+        }
+
+        .section-heading {
+            max-width: 800px;
+
+            margin: 0 auto 55px;
+
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(34px, 5vw, 55px);
+
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 span {
+            color: #ff5fa2;
+        }
+
+        .section-heading p {
+            color: #bdbdc8;
+
+            line-height: 1.7;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(150, 60, 150, 0.16),
+                    transparent 45%
+                ),
+                #08080f;
+        }
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 22px;
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        .feature-card {
+            position: relative;
+
+            padding: 30px;
+
+            min-height: 240px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.09),
+                    rgba(255,255,255,0.035)
+                );
+
+            border: 1px solid rgba(255,255,255,0.1);
+
+            transition: 0.35s ease;
+
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+
+            border-color: rgba(255,95,162,0.55);
+        }
+
+        .feature-number {
+            font-size: 13px;
+
+            color: #ff5fa2;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 23px;
+
+            margin-bottom: 13px;
+        }
+
+        .feature-card p {
+            color: #bdbdc8;
+
+            line-height: 1.6;
+
+            margin-bottom: 22px;
+        }
+
+        .feature-card a {
+            color: #ff78b4;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .feature-card a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           MISSION
+        ========================= */
+
+        .mission {
+            background: #07070c;
+        }
+
+        .mission-box {
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 50px;
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            border: 1px solid rgba(255,255,255,0.09);
+
+            background: rgba(255,255,255,0.035);
+        }
+
+        .mission-box h2 {
+            font-size: 38px;
+
+            margin-bottom: 20px;
+        }
+
+        .mission-box p {
+            max-width: 800px;
+
+            margin: auto;
+
+            color: #c4c4cc;
+
+            line-height: 1.8;
+
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           DISCLAIMER
+        ========================= */
+
+        .disclaimer {
+            background: #0b0b12;
+
+            padding-top: 45px;
+
+            padding-bottom: 45px;
+        }
+
+        .disclaimer-box {
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 25px;
+
+            border-left: 3px solid #ff5fa2;
+
+            background: rgba(255,255,255,0.035);
+        }
+
+        .disclaimer-box h3 {
+            margin-bottom: 10px;
+        }
+
+        .disclaimer-box p {
+            color: #bdbdc8;
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #050509;
+
+            border-top: 1px solid rgba(255,255,255,0.08);
+
+            padding: 60px 7% 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1.3fr 0.7fr 1fr;
+
+            gap: 45px;
+        }
+
+        .footer-brand h2 {
+            font-size: 30px;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-brand h2 span {
+            color: #ff5fa2;
+        }
+
+        .footer-brand p {
+            color: #9696a3;
+
+            line-height: 1.7;
+
+            max-width: 430px;
+        }
+
+        .footer-column h3 {
+            font-size: 16px;
+
+            margin-bottom: 18px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            color: #9999a5;
+
+            text-decoration: none;
+
+            margin-bottom: 12px;
+
+            font-size: 14px;
+
+            transition: 0.25s ease;
+        }
+
+        .footer-column a:hover {
+            color: #ff5fa2;
+        }
+
+
+        /* =========================
+           CREDENTIALS
+        ========================= */
+
+        .credentials {
+            border-top: 1px solid rgba(255,255,255,0.08);
+
+            margin-top: 45px;
+
+            padding-top: 25px;
+
+            text-align: center;
+        }
+
+        .credentials p {
+            color: #a7a7b1;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+        .credentials .creator {
+            color: #ffffff;
+
+            font-weight: bold;
+        }
+
+        .credentials .email {
+            color: #ff72b1;
+
+            text-decoration: none;
+        }
+
+        .credentials .email:hover {
+            text-decoration: underline;
+        }
+
+        .independent {
+            display: inline-block;
+
+            margin-top: 8px;
+
+            padding: 5px 12px;
+
+            border-radius: 20px;
+
+            background: rgba(255,255,255,0.05);
+
+            color: #777783;
+
+            font-size: 11px;
+
+            letter-spacing: 0.5px;
+        }
+
+        .copyright {
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid rgba(255,255,255,0.05);
+
+            text-align: center;
+
+            color: #666671;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            section {
+                padding: 70px 5%;
+            }
+
+            nav {
+                padding: 20px 5%;
+            }
+
+            .logo {
+                font-size: 25px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero-content {
+                padding: 70px 5%;
+            }
+
+            .hero-content h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-box {
+                padding: 30px 20px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+
+                gap: 30px;
+            }
+        }
+
+    </style>
 
 </head>
 
@@ -39,287 +709,313 @@
 <body>
 
 
-<header class="navbar">
+<!-- =========================
+     HERO
+========================= -->
 
+<header class="hero">
 
-    <a href="/" class="brand">
-
-        <span class="brand-ribbon">
-            🎗️
-        </span>
-
-        <span>
-
-            <strong>
-                CAP
-            </strong>
-
-            <small>
-                Cancer Awareness Platform
-            </small>
-
-        </span>
-
-    </a>
+    <div class="hero-background"></div>
 
 
     <nav>
 
-        <a href="/">
-            Home
-        </a>
+        <div class="logo">
+            C<span>A</span>P
+             <span class ="brand-ribbon">🎗️</span>
+        </div>
 
-        <a href="/self-check">
-            Body Awareness
-        </a>
 
-        <a href="/warning-signs">
-            Warning Signs
-        </a>
+        <ul class="nav-links">
 
-        <a href="/myths">
-            Myths & Facts
-        </a>
+            <li>
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+            </li>
 
-        <a href="/healthcare">
-            Healthcare
-        </a>
+            <li>
+                <a href="{{ url_for('self_check') }}">
+                    Self-Check
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('warning_signs') }}">
+                    Warning Signs
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('research_notes') }}">
+                    Research Notes
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('myths') }}">
+                    Myths
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('healthcare') }}">
+                    Healthcare
+                </a>
+            </li>
+
+        </ul>
 
     </nav>
 
 
-</header>
-
-
-
-<!-- HERO -->
-
-
-<section class="hero">
-
-
-    <div class="hero-slide slide-one active"></div>
-
-    <div class="hero-slide slide-two"></div>
-
-    <div class="hero-slide slide-three"></div>
-
-    <div class="hero-slide slide-four"></div>
-
-
-    <div class="hero-overlay"></div>
-
-
-    <button
-        class="hero-arrow left"
-        onclick="previousSlide()">
-
-        ‹
-
-    </button>
-
-
-    <button
-        class="hero-arrow right"
-        onclick="nextSlide()">
-
-        ›
-
-    </button>
-
-
     <div class="hero-content">
 
-
-        <p class="eyebrow">
+        <div class="tag">
             CANCER AWARENESS PLATFORM
-        </p>
+              <span class="brand-ribbon">🎗️</span>
+
+        </div>
 
 
         <h1>
-
-            Know Your Body.
-
-            <span class="pink">
-                Spot Changes Early.
-            </span>
-
+            Know Your Body.<br>
+            <span>Know When To Act.</span>
         </h1>
 
 
-        <p class="hero-description">
-
-            Learn about cancer awareness, understand
-            important changes, and know when to seek
-            professional healthcare.
-
+        <p>
+            CAP is an educational cancer-awareness initiative designed
+            to help people understand their bodies, recognise changes
+            that may need attention, challenge common myths, and find
+            appropriate healthcare support.
         </p>
 
 
         <div class="hero-buttons">
 
-
-            <a href="/self-check"
-               class="button primary">
-
-                Start Body Awareness →
-
+            <a href="{{ url_for('self_check') }}"
+               class="btn btn-primary">
+                Explore Self-Check
             </a>
 
 
-            <a href="/warning-signs"
-               class="button outline">
-
-                Warning Signs
-
+            <a href="{{ url_for('warning_signs') }}"
+               class="btn btn-secondary">
+                Learn Warning Signs
             </a>
 
-
         </div>
-
-
-        <div class="slide-dots">
-
-            <span class="dot active"></span>
-
-            <span class="dot"></span>
-
-            <span class="dot"></span>
-
-            <span class="dot"></span>
-
-        </div>
-
 
     </div>
 
-
-    <div class="hero-message">
-
-        <span>
-            🎗️
-        </span>
-
-        <strong>
-            Awareness matters.
-        </strong>
-
-        <p>
-            Learn. Understand. Take action.
-        </p>
-
-    </div>
-
-
-</section>
+</header>
 
 
 
-<!-- INTRO -->
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section class="features">
 
 
-<section class="section">
-
-
-    <div class="section-title">
-
-        <p class="eyebrow dark">
-            CAP
-        </p>
+    <div class="section-heading">
 
         <h2>
-            Awareness Starts With You
+            Explore <span>CAP</span>
+             <span class="brand-ribbon">🎗️</span>
         </h2>
 
         <p>
-            Learn what is normal for your body and understand
-            when professional advice may be needed.
+            Learn about body awareness, possible warning signs,
+            cancer myths, and how to seek appropriate healthcare
+            support.
         </p>
 
     </div>
 
 
-    <div class="home-feature-grid">
+    <div class="feature-grid">
 
 
-        <a href="/self-check"
-           class="home-feature">
+        <!-- SELF CHECK -->
 
-            <span>
-                🔎
-            </span>
+        <div class="feature-card">
+
+            <div class="feature-number">
+                01 / BODY AWARENESS
+            </div>
 
             <h3>
-                Know Your Body
+                Self-Check Education
             </h3>
 
             <p>
-                Explore six body-awareness areas.
+                Learn about different areas of the body and changes
+                that may be worth discussing with a qualified
+                healthcare professional.
             </p>
 
-        </a>
+            <a href="{{ url_for('self_check') }}">
+                Explore →
+            </a>
+
+        </div>
 
 
-        <a href="/warning-signs"
-           class="home-feature">
 
-            <span>
-                ⚠️
-            </span>
+        <!-- WARNING SIGNS -->
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                02 / EDUCATION
+            </div>
 
             <h3>
-                Recognise Changes
+                Warning Signs
             </h3>
 
             <p>
-                Understand important warning signs.
+                Understand general changes and symptoms that can
+                sometimes require professional medical assessment.
             </p>
 
-        </a>
+            <a href="{{ url_for('warning_signs') }}">
+                Learn More →
+            </a>
+
+        </div>
 
 
-        <a href="/healthcare"
-           class="home-feature">
 
-            <span>
-                🏥
-            </span>
+        <!-- MYTHS -->
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                03 / FACT CHECK
+            </div>
+
+            <h3>
+                Myths & Facts
+            </h3>
+
+            <p>
+                Separate common cancer misconceptions from
+                evidence-based health information.
+            </p>
+
+            <a href="{{ url_for('myths') }}">
+                Explore →
+            </a>
+
+        </div>
+
+
+
+        <!-- HEALTHCARE -->
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                04 / SUPPORT
+            </div>
 
             <h3>
                 Find Healthcare
             </h3>
 
             <p>
-                Locate healthcare services near you.
+                Learn how to seek appropriate healthcare support when
+                you notice a new or persistent change.
             </p>
 
-        </a>
+            <a href="{{ url_for('healthcare') }}">
+                Find Support →
+            </a>
+
+        </div>
+
+
+
+        <!-- EARLY AWARENESS -->
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                05 / AWARENESS
+            </div>
+
+            <h3>
+                Early Awareness
+            </h3>
+
+            <p>
+                CAP encourages people to pay attention to unusual or
+                persistent changes and take appropriate action.
+            </p>
+
+            <a href="{{ url_for('self_check') }}">
+                Start Learning →
+            </a>
+
+        </div>
+
+
+
+        <!-- CAP MISSION -->
+
+        <div class="feature-card">
+
+            <div class="feature-number">
+                06 / THE MISSION
+            </div>
+
+            <h3>
+                The CAP Mission
+            </h3>
+
+            <p>
+                Building a simple, accessible platform that helps
+                people become more informed about cancer awareness
+                and healthcare.
+            </p>
+
+            <a href="#mission">
+                Our Mission →
+            </a>
+
+        </div>
 
 
     </div>
-
 
 </section>
 
 
 
-<section class="remember">
+<!-- =========================
+     MISSION
+========================= -->
 
-    <div class="remember-icon">
-        ℹ️
-    </div>
+<section class="mission" id="mission">
 
-    <div>
 
-        <h3>
-            CAP is an awareness tool
-        </h3>
+    <div class="mission-box">
+
+        <h2>
+            Why CAP Exists
+        </h2>
+
 
         <p>
-            CAP does not diagnose cancer. A new or persistent
-            change does not automatically mean cancer, but
-            concerning changes should be discussed with a
-            qualified healthcare professional.
+            CAP was created from a simple idea: greater awareness can
+            encourage people to pay attention to changes in their
+            health and seek appropriate professional advice sooner.
+            The project focuses on education, awareness and access to
+            reliable health information.
         </p>
 
     </div>
@@ -328,30 +1024,194 @@
 
 
 
+<!-- =========================
+     DISCLAIMER
+========================= -->
+
+<section class="disclaimer">
+
+
+    <div class="disclaimer-box">
+
+        <h3>
+            Important Health Information
+        </h3>
+
+
+        <p>
+            CAP provides educational information and is not a
+            diagnostic tool or a replacement for a doctor, nurse,
+            dentist or other qualified healthcare professional.
+            A change mentioned on this website does not automatically
+            mean cancer. Many changes have other causes. If you notice
+            a new, unusual or persistent change that concerns you,
+            seek advice from an appropriate healthcare professional.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
-    <strong>
-        🎗️ CAP — Cancer Awareness Platform
-    </strong>
 
-    <p>
-        Learn. Understand. Take Action.
-    </p>
+    <div class="footer-container">
 
-    <p>
-        © 2026 CAP
-    </p>
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+            <h2>
+                C<span>A</span>P
+            </h2>
+
+
+            <p>
+                Cancer Awareness Project — an independent health
+                education initiative focused on improving cancer
+                awareness and encouraging appropriate healthcare
+                support.
+            </p>
+
+        </div>
+
+
+
+        <!-- QUICK LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+
+            <a href="{{ url_for('self_check') }}">
+                Self-Check
+            </a>
+
+
+            <a href="{{ url_for('warning_signs') }}">
+                Warning Signs
+            </a>
+
+
+            <a href="{{ url_for('myths') }}">
+                Myths & Facts
+            </a>
+
+
+            <a href="{{ url_for('healthcare') }}">
+                Healthcare
+            </a>
+
+        </div>
+
+
+
+        <!-- CONTACT -->
+
+        <div class="footer-column">
+
+            <h3>
+                Contact
+            </h3>
+
+
+            <a href="mailto:kupakwashesithole12@gmail.com">
+                kupakwashesithole12@gmail.com
+            </a>
+
+
+            <a href="{{ url_for('healthcare') }}">
+                Healthcare Support
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         CREDENTIALS
+    ========================= -->
+
+    <div class="credentials">
+
+
+        <p>
+
+            <span class="creator">
+                CAP — Cancer Awareness Platform
+            </span>
+
+        </p>
+
+
+        <p>
+
+            Created and developed by
+
+            <span class="creator">
+                Kupakwashe Nkosilathi Sithole
+            </span>
+
+        </p>
+
+
+        <p>
+            Established September 2026
+        </p>
+
+
+        <p>
+
+            Contact:
+
+            <a
+                class="email"
+                href="mailto:kupakwashesithole12@gmail.com"
+            >
+                kupakwashesithole12@gmail.com
+            </a>
+
+        </p>
+
+
+        <span class="independent">
+            INDEPENDENT INITIATIVE
+        </span>
+
+
+    </div>
+
+
+
+    <!-- COPYRIGHT -->
+
+    <div class="copyright">
+
+        © 2026 Kupakwashe Nkosilathi Sithole.
+        All rights reserved.
+
+    </div>
+
 
 </footer>
 
 
-
-<script src="{{ url_for(
-    'static',
-    filename='script.js'
-) }}"></script>
-
-
 </body>
-
 </html>
