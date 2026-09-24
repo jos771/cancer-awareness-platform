@@ -8,3 +8,4 @@ __pycache__/
 
 # Local secrets and environment overrides
 .env
+static/Downloads/Git-2.55.0.5-64-bit.exe
