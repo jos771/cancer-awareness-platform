@@ -6,7 +6,7 @@ app = Flask(__name__)
 # CAP - CANCER AWARENESS Platform
 # ==================================================
 
-SITE_URL = "https://cancer-awareness-platform-5wtt.onrender.com"
+SITE_URL = "https://cancer-awareness-platform-y4o6.onrender.com"
 
 
 # ==================================================
